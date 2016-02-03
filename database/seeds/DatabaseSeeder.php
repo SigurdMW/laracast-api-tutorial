@@ -11,6 +11,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UserTableSeeder::class);
+    	DB::table('lessons')->truncate();
+        $this->call(LessonsTableSeeder::class);
     }
 }
