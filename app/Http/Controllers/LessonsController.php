@@ -11,6 +11,8 @@ use Facades\Response;
 
 use App\Smw\Transformers;
 
+use Auth;
+
 class LessonsController extends ApiController
 {
 
@@ -19,6 +21,8 @@ class LessonsController extends ApiController
     function __construct(\Smw\Transformers\LessonTransformer $lessonTransformer)
     {
         $this->lessonTransformer = $lessonTransformer;
+
+        $this->middleware('auth.basic', ['only' => 'store']);
     }
 
     /**
@@ -52,7 +56,10 @@ class LessonsController extends ApiController
      */
     public function store(Request $request)
     {
-        //
+        if (! $request['title'])
+        {
+            return $this->setStatusCode(422)->respondWithError('Parameters faild validation.');
+        }
     }
 
     /**
