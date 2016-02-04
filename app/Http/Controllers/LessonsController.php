@@ -58,8 +58,13 @@ class LessonsController extends ApiController
     {
         if (! $request['title'])
         {
-            return $this->setStatusCode(422)->respondWithError('Parameters faild validation.');
+            return $this->respondValidationError('Parameters failed validation.');
         }
+
+        $lesson = new Lesson($request->all());
+        $lesson->save();
+
+        return $this->respondCreated('Lesson successfully created.');
     }
 
     /**

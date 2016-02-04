@@ -46,4 +46,18 @@ class ApiController extends Controller {
 			]
 		]);
 	}
+
+	public function respondValidationError($message)
+	{
+		return $this->setStatusCode(422)->respond([
+			'message' => $message
+		]);
+	}
+
+	public function respondCreated($message)
+	{
+		return $this->setStatusCode(201)->respond([
+            'message' => $message
+        ]);
+	}
 }
