@@ -16,6 +16,7 @@ class LessonsTableSeeder extends Seeder {
 		Lesson::create([
 			'title' => $faker->sentence(5),
 			'body' => $faker->paragraph(4),
+			'boolean' => $faker->boolean(),
 		]);
 	}
 

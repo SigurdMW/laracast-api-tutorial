@@ -5,12 +5,22 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController;
 use App\Lesson;
 use Facades\Response;
 
-class LessonsController extends Controller
+use App\Smw\Transformers;
+
+class LessonsController extends ApiController
 {
+
+    protected $lessonTransformer;
+
+    function __construct(\Smw\Transformers\LessonTransformer $lessonTransformer)
+    {
+        $this->lessonTransformer = $lessonTransformer;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -19,9 +29,9 @@ class LessonsController extends Controller
     public function index()
     {
         $lessons = Lesson::all();
-        return response()->json([
-            'data' => $lessons->toArray()
-            ], 200);
+        return $this->respond([
+            'data' => $this->lessonTransformer->transformCollection($lessons->toArray())
+            ]);
     }
 
     /**
@@ -57,16 +67,12 @@ class LessonsController extends Controller
 
         if( ! $lesson )
         {
-            return Response()->json([
-                'error' => 'Lesson does not exist',
-            ], 404);
+            return $this->respondNotFound('Lesson does not exist');
         } 
-        else 
-        {
-            return Response()->json([
-                'data' => $lesson->toArray(),
-            ], 200);
-        }
+
+        return $this->respond([
+            'data' => $this->lessonTransformer->transform($lesson)
+        ]);
     }
 
     /**
