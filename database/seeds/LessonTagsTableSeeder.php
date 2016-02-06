@@ -10,18 +10,18 @@ class LessonTagsTableSeeder extends Seeder {
 	public function run()
 	{
 
-	$faker = Faker::create();
+		$faker = Faker::create();
 
-	$lessonIds = Lesson::lists('id');
-	$tagIds = Tag::lists('id');
+		$lessonIds = Lesson::lists('id');
+		$tagIds = Tag::lists('id');
 
-	foreach(range(1,30) as $index)
-	{
-		DB::table('lesson_tags')->insert([
-			'lesson_id' => $faker->randomElement($lessonIds),
-			'tag_id'	=> $faker->randomElement($tagIds),
-		])
-	}
+		foreach(range(1,30) as $index)
+		{
+			DB::table('lesson_tags')->insert([
+				'lesson_id' => $faker->randomElement($lessonIds->toArray()),
+				'tag_id'	=> $faker->randomElement($tagIds->toArray()),
+			]);
+		}
 
 	}
 

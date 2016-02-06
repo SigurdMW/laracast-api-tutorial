@@ -1,10 +1,16 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Tag;
 
 class DatabaseSeeder extends Seeder
 {
+
+    private $tables = [
+        'lessons',
+        'tags',
+        'lesson_tags',
+    ];
+
     /**
      * Run the database seeds.
      *
@@ -12,14 +18,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        DB::statement('SET FOREIGN_KEY_CHECKS=0');
-    	DB::table('lessons')->truncate();
-        DB::table('tags')->truncate();
-        DB::table('lesson_tags')->truncate();
-        DB::statement('SET FOREIGN_KEY_CHECKS=1');
-
+        $this->cleanDatabase(); //removes all content
+    	
+        //this recreates dummy data in the database. 
         $this->call(LessonsTableSeeder::class);
         $this->call(TagsTableSeeder::class);
         $this->call(LessonTagsTableSeeder::class);
     }
+
+    private function cleanDatabase(){
+        DB::statement('SET FOREIGN_KEY_CHECKS=0');
+        foreach ($this->tables as $tableName) {
+            DB::table($tableName)->truncate();
+        };
+        DB::statement('SET FOREIGN_KEY_CHECKS=1');
+    }
 }
+
