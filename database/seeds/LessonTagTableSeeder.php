@@ -5,7 +5,7 @@ use App\Tag;
 use App\Lesson;
 use Faker\Factory as Faker;
 
-class LessonTagsTableSeeder extends Seeder {
+class LessonTagTableSeeder extends Seeder {
 	
 	public function run()
 	{
@@ -17,7 +17,7 @@ class LessonTagsTableSeeder extends Seeder {
 
 		foreach(range(1,30) as $index)
 		{
-			DB::table('lesson_tags')->insert([
+			DB::table('lesson_tag')->insert([
 				'lesson_id' => $faker->randomElement($lessonIds->toArray()),
 				'tag_id'	=> $faker->randomElement($tagIds->toArray()),
 			]);

@@ -8,7 +8,7 @@ class DatabaseSeeder extends Seeder
     private $tables = [
         'lessons',
         'tags',
-        'lesson_tags',
+        'lesson_tag',
     ];
 
     /**
@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
         //this recreates dummy data in the database. 
         $this->call(LessonsTableSeeder::class);
         $this->call(TagsTableSeeder::class);
-        $this->call(LessonTagsTableSeeder::class);
+        $this->call(LessonTagTableSeeder::class);
     }
 
     private function cleanDatabase(){

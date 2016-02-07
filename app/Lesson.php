@@ -10,4 +10,8 @@ class Lesson extends Model
     	'title',
     	'body',
     ];
+
+    public function tags(){
+    	return $this->belongsToMany('App\Tag');
+    }
 }

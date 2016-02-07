@@ -12,7 +12,7 @@ class CreateLessonTagTable extends Migration
      */
     public function up()
     {
-        Schema::create('lesson_tags', function (Blueprint $table) {
+        Schema::create('lesson_tag', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('tag_id')->unsigned();
             $table->integer('lesson_id')->unsigned();
@@ -30,6 +30,6 @@ class CreateLessonTagTable extends Migration
      */
     public function down()
     {
-        Schema::drop('lesson_tags');
+        Schema::drop('lesson_tag');
     }
 }
